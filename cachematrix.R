@@ -15,8 +15,8 @@ makeCacheMatrix <- function(x = matrix()) {
         localcache <- NULL
   
         # build matrix in working environment
-        store <- function(z) {
-                x <<- z
+        store <- function(y) {
+                x <<- y
                 localcache <<- NULL
         }
   
@@ -44,12 +44,13 @@ cacheSolve <- function(x, ...) {
         # if localcache null it will create the matrix
         if (!is.null(localcache)) {
                 # return stored matrix
+                message("using cache")
                 return(localcache)
         }
         # create stored matrix
-        matrix <- x$store()
+        matrix <- x$retrive()
         # retrive and solve inverse
-        localcache <- solve(matrix, ...)
+        localcache <- solve(matrix)
         # store results
         x$storeMatrix(localcache)
   
