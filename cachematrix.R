@@ -34,8 +34,25 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Write a short comment describing this function
+## cacheSolve solves the inverse for the matrix created with makeCacheMatrix
+## If cached inverse does not already exist it stored it
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+        ## retrive inverse stored in localcache
+        localcache <- x$retriveInverse()
+  
+        # if localcache null it will create the matrix
+        if (!is.null(localcache)) {
+                # return stored matrix
+                return(localcache)
+        }
+        # create stored matrix
+        matrix <- x$store()
+        # retrive and solve inverse
+        localcache <- solve(matrix, ...)
+        # store results
+        x$storeMatrix(localcache)
+  
+        # return stored matrix
+        return (localcache)
 }
